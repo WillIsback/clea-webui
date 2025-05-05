@@ -53,7 +53,7 @@ Interface web pour CLEA (Corpus Linker & Exploratory Assistant), une plateforme 
 
 - Node.js 20+ 
 - npm ou yarn
-- [CLEA API](https://github.com/yourusername/clea-api) (backend) accessible
+- [CLEA API](https://github.com/WillIsback/clea-api) (backend) accessible
 - Pour le déploiement: Docker et Docker Compose
 
 ## 💻 Développement
