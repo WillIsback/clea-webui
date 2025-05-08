@@ -7,15 +7,15 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - API_BASE_URL=http://clea-api:8080
+      - PUBLIC_API_URL=http://clea-api:8080
     networks:
       - clea-network
 
   nginx:
     image: nginx:alpine
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/ssl:/etc/nginx/ssl

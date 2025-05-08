@@ -1,35 +1,43 @@
-FROM node:20-slim AS build
+FROM node:24-slim AS build
 
 WORKDIR /app
 
-# Copie des fichiers package.json et package-lock.json pour installer les dépendances
-COPY package*.json ./
+# Copy package files first for better caching
+COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copie du reste de l'application
+# Copy the rest including .env file
 COPY . .
 
-# Construction de l'application
+# Create .env if it doesn't exist
+RUN if [ ! -f .env ]; then echo "PUBLIC_API_URL=http://api:8080" > .env; fi
+
+# Generate the environment module before building
+RUN npx svelte-kit sync
+
+# Build the application
 RUN npm run build
 
-# Image de production
-FROM node:20-slim AS runtime
+# Runtime image
+FROM node:24-slim AS runtime
 
 WORKDIR /app
 
-# Variables d'environnement
+# Environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
+# For runtime environment variables
+ENV PUBLIC_API_URL=http://api:8080
 
-# Copie des fichiers nécessaires depuis l'étape de build
+# Copy files from build stage
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/build ./build
 
-# Installation des dépendances de production uniquement
+# Install production dependencies only
 RUN npm ci --omit=dev
 
-# Exposition du port
+# Expose port
 EXPOSE 3000
 
-# Commande de démarrage
+# Start command
 CMD ["node", "build"]

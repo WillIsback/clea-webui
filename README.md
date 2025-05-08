@@ -51,7 +51,7 @@ Interface web pour CLEA (Corpus Linker & Exploratory Assistant), une plateforme 
 
 ## 🛠️ Prérequis
 
-- Node.js 20+ 
+- Node.js 20+
 - npm ou yarn
 - [CLEA API](https://github.com/WillIsback/clea-api) (backend) accessible
 - Pour le déploiement: Docker et Docker Compose
@@ -111,6 +111,7 @@ docker-compose logs -f
 ### Configuration SSL
 
 1. Placez vos certificats SSL dans ssl:
+
    - `cert.pem`: votre certificat
    - `key.pem`: votre clé privée
 
