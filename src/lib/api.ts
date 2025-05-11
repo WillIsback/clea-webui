@@ -1,6 +1,7 @@
 import { browser } from '$app/environment';
-import { PUBLIC_API_URL } from '$env/static/public';
 
+
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 /**
  * Returns the appropriate API base URL depending on execution context
  * - In browser: returns '/api' (to be handled by nginx proxy)
@@ -12,7 +13,7 @@ export function getApiUrl(): string {
 		return '/api';
 	}
 	// On server: use internal Docker network URL
-	return PUBLIC_API_URL;
+	return API_URL;
 }
 
 /**

@@ -108,6 +108,23 @@ docker-compose up -d
 docker-compose logs -f
 ```
 
+### Avec Docker
+
+```bash
+# Reconstruire l'image
+docker build -t clea-webui:latest .
+
+# Exécuter avec les ports publiés
+docker run -d --name clea-webui-test -p 80:80 -p 3000:3000 clea-webui:latest
+
+# Vérifier les logs
+docker logs clea-webui-test
+
+# Accéder à l'application
+# - Interface web: http://localhost:80
+# - Service Node.js direct: http://localhost:3000
+```
+
 ### Configuration SSL
 
 1. Placez vos certificats SSL dans ssl:
